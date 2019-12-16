@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="robots" content="noindex">
+        <title>Angularjs login using PHP with PostgresSQL</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" id="main-css">
+        <link href="css/style.css" rel="stylesheet" id="main-css">
+        <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>  
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <style>
+        .panel-default > .panel-heading {
+            color: #eae0e0;
+            background-color:#d24963;
+            border-color:#ddd;
+        }
+        .btn-primary {
+            color: #fff;
+            background-color:#d24963;
+            border-color:#357ebd;
+        }
+        .container {
+            /*width: 750px;*/
+        }
+        .panel {
+            border-color:#d24963 !important;
+            margin-bottom: 20px;
+            background-color: #f4f2f2;
+            border: 1px solid transparent;
+            border-top-color: transparent;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
+            border-left-color: transparent;
+            border-radius: 4px;
+            -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+            box-shadow: 0 1px 1px rgba(0,0,0,.05);
+        }
+        </style>
+    </head>
+<body ng-app="postExample" ng-controller="PostController as postCtrl">
+<div class="container">
+
+    <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3"> 
+        
+        <div class="row">
+            <h2 class="text-center"></h2>
+        </div>
+        
+        <div class="panel panel-default" >
+            <div class="panel-heading">
+                <div class="panel-title text-center">EC ZYUEN</div>
+            </div>     
+
+            <div class="panel-body" >
+
+                <form name="login" ng-submit="postCtrl.postForm()" class="form-horizontal" method="POST">                   
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input type="text" id="inputUsername" class="form-control" required autofocus ng-model="postCtrl.inputData.username">
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input type="password" id="inputPassword" class="form-control" required ng-model="postCtrl.inputData.password">
+                    </div>
+                    <div class="alert alert-danger" ng-show="errorMsg">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            ×</button>
+                        <span class="glyphicon glyphicon-hand-right"></span>&nbsp;&nbsp;{{errorMsg}}
+                    </div>
+                    
+                    <div class="form-group">
+                        <!-- Button -->
+                        <div class="col-sm-12 controls">
+                            <button type="submit" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-log-in"></i> Log in</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>                     
+        </div>  
+    </div>
+</div>    
+<script>
+	angular.module('postExample', [])
+	.controller('PostController', ['$scope', '$http', function($scope, $http) {		
+		this.postForm = function() {
+		
+			var encodedString = 'username=' +
+				encodeURIComponent(this.inputData.username) +
+				'&password=' +
+				encodeURIComponent(this.inputData.password);
+				
+			$http({
+				method: 'POST',
+				url: 'config.php',
+				data: encodedString,
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			})
+			.success(function(data) {
+                                console.log(data);
+				if ( data.trim() === 'correct') {
+					window.location.href = 'welcome.php';
+				} else {
+					$scope.errorMsg = "Username and password do not match.";
+				}
+			})			
+		}
+		
+	}]);
+	</script>
+        
+    </body>
+</html>
