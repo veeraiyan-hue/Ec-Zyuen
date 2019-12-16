@@ -13,9 +13,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 </head>
 <body>
-<div class="alert alert-info">
-<h4 style="text-align:center;">Welcome to Angular js 1 and PHP with PostgreSQL dashboard. <a href="http://dev.sample3.local" ng-click="logout()" target="_self" class="btn btn-danger" style="float:right;">Log Out</a></h4>
-
+<div class="alert alert-info"><p style="text-align:right;">You're logged in!!</p>
+<p><a href="http://dev.sample3.local" ng-click="logout()" target="_self" class="btn btn-danger" style="float:right;">Log Out</a></p>
+<h4 style="text-align:center;">Welcome to EC Zyuen dashboard.</h4> 
 </div>
 </body>
 </html>
